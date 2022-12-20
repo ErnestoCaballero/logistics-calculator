@@ -22,7 +22,7 @@ public class TileBox {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "m2_pero_box")
+    @Column(name = "m2_per_box")
     private Double m2PerBox;
 
     @Column(name = "boxes_per_pallet")
