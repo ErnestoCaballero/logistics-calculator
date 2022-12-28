@@ -20,7 +20,6 @@ public class TileBoxController {
     @GetMapping("/products")
     public String showAllProducts(Model model ) {
         model.addAttribute("products", tileBoxService.findAll());
-
         return "entities/listofproducts";
     }
 }
