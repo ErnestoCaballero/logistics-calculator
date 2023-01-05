@@ -8,4 +8,6 @@ public interface TileBoxService {
 
     Set<TileBox> findAll();
 
+    TileBox save(TileBox tileBox);
+
 }

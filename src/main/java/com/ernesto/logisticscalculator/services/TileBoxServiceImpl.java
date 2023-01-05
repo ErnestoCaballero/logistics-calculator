@@ -4,6 +4,7 @@ import com.ernesto.logisticscalculator.model.TileBox;
 import com.ernesto.logisticscalculator.repositories.TileBoxRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class TileBoxServiceImpl implements TileBoxService {
     }
 
     @Override
+    @Transactional
     public Set<TileBox> findAll() {
         log.debug("I'm in the service to findAll Tile Boxes and put them in a Set");
 
@@ -30,5 +32,15 @@ public class TileBoxServiceImpl implements TileBoxService {
         }
 
         return tileBoxes;
+    }
+
+    @Override
+    @Transactional
+    public TileBox save(TileBox tileBox) {
+        TileBox result = tileBoxRepository.save(tileBox);
+
+        log.debug("Saved tile box: " + tileBox.getId());
+
+        return result;
     }
 }
