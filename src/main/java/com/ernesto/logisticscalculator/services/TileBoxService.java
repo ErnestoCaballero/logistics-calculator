@@ -13,4 +13,6 @@ public interface TileBoxService {
 
     TileBox findById(Long id);
 
+    void deleteById(Long id);
+
 }

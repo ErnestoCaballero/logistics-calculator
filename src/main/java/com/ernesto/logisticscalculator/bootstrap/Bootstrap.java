@@ -43,5 +43,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         System.out.println("The description of the item is: " + optionalTileBox.get().getDescription());
 
+        System.out.println("Select the id of the item to be deleted: ");
+        Long idToDelete = scanner.nextLong();
+        tileBoxRepository.deleteById(idToDelete);
+
     }
 }

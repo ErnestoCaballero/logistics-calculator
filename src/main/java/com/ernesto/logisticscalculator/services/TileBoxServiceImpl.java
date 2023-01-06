@@ -56,4 +56,10 @@ public class TileBoxServiceImpl implements TileBoxService {
 
         return optionalTileBox.get();
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        tileBoxRepository.deleteById(id);
+    }
 }
