@@ -24,9 +24,13 @@ public class Truck {
     @Column(name = "capacity_in_tons")
     Double capacityInTons;
 
-    public Truck(Long id, String type, Double capacityInTons) {
+    @Column(name = "cost_per_trip")
+    Double cost;
+
+    public Truck(Long id, String type, Double capacityInTons, Double cost) {
         this.id = id;
         this.type = type;
         this.capacityInTons = capacityInTons;
+        this.cost = cost;
     }
 }
