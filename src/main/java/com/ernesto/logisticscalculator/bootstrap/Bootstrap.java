@@ -8,6 +8,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.Scanner;
+
 @Slf4j
 @Component
 public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -30,5 +33,15 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         tileBox1.setWeightPerBox(23.9);
 
         tileBoxRepository.save(tileBox1);
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please insert the id of the item you want to find");
+        Long id = scanner.nextLong();
+
+        Optional<TileBox> optionalTileBox = tileBoxRepository.findById(id);
+
+        System.out.println("The description of the item is: " + optionalTileBox.get().getDescription());
+
     }
 }
