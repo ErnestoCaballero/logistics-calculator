@@ -2,6 +2,7 @@ package com.ernesto.logisticscalculator.services;
 
 import com.ernesto.logisticscalculator.model.TileBox;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface TileBoxService {
@@ -9,5 +10,7 @@ public interface TileBoxService {
     Set<TileBox> findAll();
 
     TileBox save(TileBox tileBox);
+
+    TileBox findById(Long id);
 
 }

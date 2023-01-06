@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -42,5 +43,17 @@ public class TileBoxServiceImpl implements TileBoxService {
         log.debug("Saved tile box: " + tileBox.getId());
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public TileBox findById(Long id) {
+        Optional<TileBox> optionalTileBox = tileBoxRepository.findById(id);
+
+        if (optionalTileBox.isEmpty()) {
+            throw new RuntimeException("Tile Box not found!");
+        }
+
+        return optionalTileBox.get();
     }
 }
