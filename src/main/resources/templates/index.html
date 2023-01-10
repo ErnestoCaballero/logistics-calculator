@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-  <h2>Logistics Calculator!</h2>
+  <div style="width:800px; margin:0 auto;">
+      <table>
+          <thead>
+          <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Select</th>
+              <th>Update</th>
+              <th>Delete</th>
+          </tr>
+          </thead>
+          <tr th:each="truck : ${trucks}">
+              <td th:text="${truck.id}">123</td>
+              <td th:text="${truck.type}">Plana</td>
+              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/show/'}">Select</a></td>
+              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/update/'}">Update</a></td>
+              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/delete/'}">Delete</a></td>
+          </tr>
+      </table>
+  </div>
 
 </body>
 </html>
