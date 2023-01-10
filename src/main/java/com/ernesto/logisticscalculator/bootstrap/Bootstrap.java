@@ -34,18 +34,18 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         tileBoxRepository.save(tileBox1);
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Please insert the id of the item you want to find");
-        Long id = scanner.nextLong();
-
-        Optional<TileBox> optionalTileBox = tileBoxRepository.findById(id);
-
-        System.out.println("The description of the item is: " + optionalTileBox.get().getDescription());
-
-        System.out.println("Select the id of the item to be deleted: ");
-        Long idToDelete = scanner.nextLong();
-        tileBoxRepository.deleteById(idToDelete);
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("Please insert the id of the item you want to find");
+//        Long id = scanner.nextLong();
+//
+//        Optional<TileBox> optionalTileBox = tileBoxRepository.findById(id);
+//
+//        System.out.println("The description of the item is: " + optionalTileBox.get().getDescription());
+//
+//        System.out.println("Select the id of the item to be deleted: ");
+//        Long idToDelete = scanner.nextLong();
+//        tileBoxRepository.deleteById(idToDelete);
 
     }
 }
