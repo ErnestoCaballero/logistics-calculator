@@ -12,6 +12,7 @@
               <th>ID</th>
               <th>Type</th>
               <th>Select</th>
+              <th>Show</th>
               <th>Update</th>
               <th>Delete</th>
           </tr>
@@ -19,7 +20,8 @@
           <tr th:each="truck : ${trucks}">
               <td th:text="${truck.id}">123</td>
               <td th:text="${truck.type}">Plana</td>
-              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/show/'}">Select</a></td>
+              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/select/'}">Select</a></td>
+              <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/show/'}">Show</a></td>
               <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/update/'}">Update</a></td>
               <td><a href="#" th:href="@{'/truck/' + ${truck.id} + '/delete/'}">Delete</a></td>
           </tr>
