@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="${truck.type} + ' Type'">Truck specifications</h1>
+    <ul>
+        <li th:text="'Id: ' + ${truck.id}"></li>
+        <li th:text="'Capacity in tons: ' + ${truck.capacityInTons}"></li>
+        <li th:text="'Cost: $' + ${truck.cost}"></li>
+    </ul>
+</body>
+</html>
