@@ -16,4 +16,10 @@ public class TruckController {
     public TruckController(TruckService truckService) {
         this.truckService = truckService;
     }
+
+    @GetMapping({"/truck/{id}/show/", "/truck/{id}/show"})
+    public String showTrucks(@PathVariable String id, Model model) {
+        model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
+        return "entities/truck/show";
+    }
 }
