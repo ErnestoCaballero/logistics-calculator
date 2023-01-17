@@ -1,0 +1,21 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Truck</title>
+</head>
+<body>
+  <h1 th:text="'Update Truck of type ' + ${truck.type}">Update Truck</h1>
+  <form th:object="${truck}" th:action="@{/truck/update}" method="post">
+    <label><strong>ID</strong></label>
+    <input type="text" th:field="*{id}"/>
+    <label><strong>Type</strong></label>
+    <input type="text" th:field="*{type}"/>
+    <label><strong>Capacity in tons</strong></label>
+    <input type="text" th:field="*{capacityInTons}"/>
+    <label><strong>Cost</strong></label>
+    <input type="text" th:field="*{cost}"/>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
