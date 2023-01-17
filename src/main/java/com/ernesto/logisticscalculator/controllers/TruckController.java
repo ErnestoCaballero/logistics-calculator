@@ -22,4 +22,11 @@ public class TruckController {
         model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
         return "entities/truck/show";
     }
+
+    @GetMapping({"/truck/{id}/delete/", "/truck/{id}/delete"})
+    public String deleteTruck(@PathVariable String id) {
+        truckService.deleteById(Long.valueOf(id));
+
+        return "redirect:/";
+    }
 }
