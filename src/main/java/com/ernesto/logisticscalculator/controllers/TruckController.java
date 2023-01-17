@@ -25,8 +25,20 @@ public class TruckController {
 
     @GetMapping({"/truck/{id}/delete/", "/truck/{id}/delete"})
     public String deleteTruck(@PathVariable String id) {
+        log.debug("Deleting id: " + id);
+
         truckService.deleteById(Long.valueOf(id));
 
         return "redirect:/";
     }
+
+    @GetMapping({"/truck/{id}/update/", "/truck/{id}/update"})
+    public String updateTruck(@PathVariable String id, Model model) {
+
+        model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
+
+        return "entities/truck/truckform";
+    }
+
+
 }
