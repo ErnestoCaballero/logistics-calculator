@@ -24,7 +24,7 @@ public class TruckController {
     public String selectTruck(@PathVariable String id, Model model) {
         model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
 
-        return "redirect:/";
+        return "entities/truck/selectedtruck";
     }
 
     @GetMapping({"/truck/{id}/show/", "/truck/{id}/show"})
