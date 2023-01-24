@@ -20,8 +20,15 @@ public class TruckController {
         this.truckService = truckService;
     }
 
+    @GetMapping({"/truck/{id}/select/", "/truck/{id}/select"})
+    public String selectTruck(@PathVariable String id, Model model) {
+        model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
+
+        return "redirect:/";
+    }
+
     @GetMapping({"/truck/{id}/show/", "/truck/{id}/show"})
-    public String showTrucks(@PathVariable String id, Model model) {
+    public String showTruck(@PathVariable String id, Model model) {
         model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
         return "entities/truck/show";
     }
@@ -49,6 +56,7 @@ public class TruckController {
         Truck truck1 = truckService.save(truck);
         return "redirect:/truck/" + truck1.getId() + "/show/";
     }
+
 
 
 }
