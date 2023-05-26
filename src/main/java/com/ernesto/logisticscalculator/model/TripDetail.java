@@ -22,6 +22,10 @@ public class TripDetail {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
+    @ManyToOne
+    @JoinColumn(name = "product_code")
+    private TileBox product;
+
     @Column(name = "sent_boxes")
     private Integer sentBoxes;
 
@@ -31,6 +35,12 @@ public class TripDetail {
     @Column(name = "total_weight")
     private Double totalWeight;
 
-    
-
+    public TripDetail(Long id, Trip trip, TileBox product, Integer sentBoxes, Double totalSquareMeters, Double totalWeight) {
+        this.id = id;
+        this.trip = trip;
+        this.product = product;
+        this.sentBoxes = sentBoxes;
+        this.totalSquareMeters = totalSquareMeters;
+        this.totalWeight = totalWeight;
+    }
 }
