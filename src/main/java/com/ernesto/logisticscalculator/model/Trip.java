@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,12 +21,34 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate date;
-
-    @OneToOne
-    private Truck truck;
+    @Column(name = "travel_date")
+    private Date date;
 
     @ManyToOne
-    private TileBox boxList;
+    @JoinColumn(name = "truck_id")
+    private Truck truck;
 
+    // In Kilograms
+    @Column(name = "total_cargo_weight")
+    private Double totalCargoWeight;
+
+    @Column(name = "truck_capacity")
+    private Double truckCapacity;
+
+    @Column(name = "total_square_meters")
+    private Double totalSquareMeters;
+
+    @Column(name = "trip_cost")
+    private Double tripCost;
+
+    public Trip(Long id, Date date, Truck truck, Double totalCargoWeight, Double truckCapacity, Double totalSquareMeters, Double tripCost) {
+        this.id = id;
+        this.date = date;
+        this.truck = truck;
+        this.totalCargoWeight = totalCargoWeight;
+        this.truckCapacity = truckCapacity;
+        this.totalSquareMeters = totalSquareMeters;
+        this.tripCost = tripCost;
+    }
+    
 }
