@@ -18,9 +18,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -84,8 +82,45 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         tripRepository.save(trip);
 
+        // Create Trip details
         System.out.println("checking the newly generated trip id...");
         Long newTripId = trip.getId();
         System.out.println("The id for the new trip generated is " + trip.getId());
+
+        List<TripDetail> tripDetails = new ArrayList<>();
+
+        // Set properties for trip 1
+        int sentBoxes1 = 12;
+        Long productId1 = 5L;
+        TripDetail tripDetail1 = new TripDetail();
+        tripDetail1.setTrip(tripRepository.findById(newTripId).get());
+        TileBox product1 = tileBoxRepository.findById(productId1).get();
+        tripDetail1.setProduct(product1);
+        tripDetail1.setSentBoxes(sentBoxes1);
+        tripDetail1.setTotalSquareMeters(product1.getM2PerBox() * sentBoxes1);
+        tripDetail1.setTotalWeight(product1.getWeightPerBox() * sentBoxes1);
+        tripDetail1.setProductName(product1.getDescription());
+
+        // Set properties for trip 2
+        int sentBoxes2 = 8;
+        Long productId2 = 2L;
+        TripDetail tripDetail2 = new TripDetail();
+        tripDetail2.setTrip(tripRepository.findById(newTripId).get());
+        TileBox product2 = tileBoxRepository.findById(productId2).get();
+        tripDetail2.setProduct(product2);
+        tripDetail2.setSentBoxes(sentBoxes2);
+        tripDetail2.setTotalSquareMeters(product2.getM2PerBox() * sentBoxes2);
+        tripDetail2.setTotalWeight(product2.getWeightPerBox() * sentBoxes2);
+        tripDetail2.setProductName(product2.getDescription());
+
+        // Adding tripDetails to List
+        tripDetails.add(tripDetail1);
+        tripDetails.add(tripDetail2);
+
+        trip.setTripDetails(tripDetails);
+
+        tripRepository.save(trip);
     }
+
+
 }
