@@ -1,4 +1,6 @@
 package com.ernesto.logisticscalculator.repositories;
 
-public interface TripDetailRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface TripDetailRepository extends CrudRepository {
 }
