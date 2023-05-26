@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,6 +33,9 @@ public class TileBox {
 
     @Column(name = "weight_per_box")
     private Double weightPerBox;
+
+    @OneToMany(mappedBy = "product")
+    private List<TripDetail> tripDetails = new ArrayList<>();
 
     public TileBox(Long id, String code, String description, Double m2PerBox, Integer boxesPerPallet, Double weightPerBox) {
         this.id = id;
