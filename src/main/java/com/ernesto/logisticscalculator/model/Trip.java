@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,10 @@ public class Trip {
     @Column(name = "trip_cost")
     private Double tripCost;
 
-    public Trip(Long id, Date date, Truck truck, Double totalCargoWeight, Double truckCapacity, Double totalSquareMeters, Double tripCost) {
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TripDetail> tripDetails = new ArrayList<>();
+
+    public Trip(Long id, Date date, Truck truck, Double totalCargoWeight, Double truckCapacity, Double totalSquareMeters, Double tripCost, List<TripDetail> tripDetails) {
         this.id = id;
         this.date = date;
         this.truck = truck;
@@ -49,6 +53,6 @@ public class Trip {
         this.truckCapacity = truckCapacity;
         this.totalSquareMeters = totalSquareMeters;
         this.tripCost = tripCost;
+        this.tripDetails = tripDetails;
     }
-    
 }
