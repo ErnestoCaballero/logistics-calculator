@@ -13,6 +13,9 @@ import com.ernesto.logisticscalculator.services.TruckService;
 import jdk.swing.interop.SwingInterOpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.apache.bcel.generic.LineNumberGen;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -120,7 +123,26 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         trip.setTripDetails(tripDetails);
 
         tripRepository.save(trip);
+
+        // Checking if Controller beans have been loaded
+
+        ApplicationContext context = event.getApplicationContext();
+
+        boolean isTruckControllerLoad = isBeanLoaded(context, "truckController");
+        boolean isTripControllerLoad = isBeanLoaded(context, "tripController");
+
+        System.out.println("Is TruckController loaded? " + isTruckControllerLoad);
+        System.out.println("Is TripController loaded? " + isTripControllerLoad);
+
     }
 
+    private boolean isBeanLoaded(ApplicationContext context, String beanName) {
+        try {
+            context.getBean(beanName);
+            return true;
+        } catch (NoSuchBeanDefinitionException ex) {
+            return false;
+        }
+    }
 
 }
