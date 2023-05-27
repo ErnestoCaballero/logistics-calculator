@@ -7,7 +7,13 @@
 <body>
     <h1 th:text="'Calculating trip for truck type ' + ${truck.type}">Selected Truck</h1>
 
+    <p th:text="'The truck id is ' + ${truck.id}"></p>
+    <p th:text="'The truck capacity is ' + ${truck.capacityInTons}"></p>
+    <p th:text="'The cost of the travel is ' + ${truck.cost}"></p>
 
+    <form th:action="@{'/trip/' + ${truck.id} + '/start'}" method="get">
+        <button type="submit">Continue</button>
+    </form>
 
 </body>
 </html>
