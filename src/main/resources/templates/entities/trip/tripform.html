@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Trip Details Form</h2>
+
+    <form th:action="@{trip/save}" method="post" th:object="${tripDetails}">
+        <table>
+                <thead>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Sent Boxes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${#numbers.sequence(1, itemsNumber)}">
+                        <td th:text="${item}"></td>
+<!--                        <td><input type="text" th:field="*{tripDetails[__${item}__].product.code}"/></td>-->
+<!--                        <td><input type="number" th:field="*{tripDetails[__${item}__].sentBoxes}"/></td>-->
+                    </tr>
+                </tbody>
+        </table>
+
+        <!-- Hidden input field to store the tripId-->
+<!--        <input type="hidden" th:field="*{tripId}" />-->
+        <button type="submit">Save</button>
+    </form>
+
+</body>
+</html>
