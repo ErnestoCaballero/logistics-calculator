@@ -22,6 +22,7 @@ public class TruckController {
 
     @GetMapping({"/truck/{id}/select/", "/truck/{id}/select"})
     public String selectTruck(@PathVariable String id, Model model) {
+        log.debug("Enter the selectTruck() endpoint in TruckController class");
         model.addAttribute("truck", truckService.findById(Long.valueOf(id)));
 
         return "entities/truck/selectedtruck";
