@@ -7,7 +7,7 @@
 <body>
     <h2>Trip Details Form</h2>
 
-    <form th:action="@{trip/save}" method="post" th:object="${tripDetails}">
+    <form th:action="@{trip/save}" method="post" th:object="${tripDetailsForm}">
         <table>
                 <thead>
                     <tr>
@@ -16,11 +16,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="item : ${#numbers.sequence(1, itemsNumber)}">
+<!--                    <tr th:each="tripDetail, i : ${tripDetailsForm.tripDetails}">-->
                         <td th:text="${item}"></td>
-<!--                        <td><input type="text" th:field="*{tripDetails[__${item}__].product.code}"/></td>-->
-<!--                        <td><input type="number" th:field="*{tripDetails[__${item}__].sentBoxes}"/></td>-->
-                    </tr>
+<!--                        <td><input type="text" th:field="*{tripDetails[__i.index__].product.code}" /></td>-->
+<!--                        <td><input type="number" th:field="*{tripDetails[__i.index__].sentBoxes}"  /></td>-->
+<!--                    </tr>-->
                 </tbody>
         </table>
 
