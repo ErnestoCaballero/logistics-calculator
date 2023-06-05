@@ -11,7 +11,9 @@
     <p th:text="'The truck capacity is ' + ${truck.capacityInTons}"></p>
     <p th:text="'The cost of the travel is ' + ${truck.cost}"></p>
 
-    <form th:action="@{'/trip/' + ${truck.id} + '/start'}" method="get">
+    <form th:action="@{'/trip/' + ${truck.id} + '/submit'}" method="post">
+        <label>How many items will you send?</label>
+        <input type="number" name="itemsNumber">
         <button type="submit">Continue</button>
     </form>
 
