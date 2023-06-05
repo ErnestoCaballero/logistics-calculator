@@ -1,2 +1,4 @@
-package com.ernesto.logisticscalculator.converters;public class TileBoxToTileBoxCommand {
+package com.ernesto.logisticscalculator.converters;
+
+public class TileBoxToTileBoxCommand {
 }
