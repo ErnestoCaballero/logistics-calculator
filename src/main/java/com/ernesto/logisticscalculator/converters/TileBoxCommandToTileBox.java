@@ -4,8 +4,10 @@ import com.ernesto.logisticscalculator.commands.TileBoxCommand;
 import com.ernesto.logisticscalculator.model.TileBox;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Component
 public class TileBoxCommandToTileBox implements Converter<TileBoxCommand, TileBox> {
 
     @Transactional
