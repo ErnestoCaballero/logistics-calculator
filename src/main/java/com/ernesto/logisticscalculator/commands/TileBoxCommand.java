@@ -12,6 +12,6 @@ public class TileBoxCommand {
     private String code;
     private String description;
     private Double m2PerBox;
-    private Integer boxPerPallet;
+    private Integer boxesPerPallet;
     private Double weightPerBox;
 }
