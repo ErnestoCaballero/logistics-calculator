@@ -1,5 +1,6 @@
 package com.ernesto.logisticscalculator.services;
 
+import com.ernesto.logisticscalculator.commands.TileBoxCommand;
 import com.ernesto.logisticscalculator.model.TileBox;
 
 import java.util.Optional;
@@ -14,5 +15,7 @@ public interface TileBoxService {
     TileBox findById(Long id);
 
     void deleteById(Long id);
+
+    TileBoxCommand saveTileBoxCommand(TileBoxCommand command);
 
 }

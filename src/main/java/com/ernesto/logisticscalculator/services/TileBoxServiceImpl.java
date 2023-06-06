@@ -1,5 +1,8 @@
 package com.ernesto.logisticscalculator.services;
 
+import com.ernesto.logisticscalculator.commands.TileBoxCommand;
+import com.ernesto.logisticscalculator.converters.TileBoxCommandToTileBox;
+import com.ernesto.logisticscalculator.converters.TileBoxToTileBoxCommand;
 import com.ernesto.logisticscalculator.model.TileBox;
 import com.ernesto.logisticscalculator.repositories.TileBoxRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +18,16 @@ import java.util.Set;
 public class TileBoxServiceImpl implements TileBoxService {
 
     private final TileBoxRepository tileBoxRepository;
+    private final TileBoxCommandToTileBox tileBoxCommandToTileBox;
+    private final TileBoxToTileBoxCommand tileBoxToTileBoxCommand;
 
     // The constructor method will perform the dependency injector by the IoC into the Spring Data JPA implementation
-    public TileBoxServiceImpl(TileBoxRepository tileBoxRepository) {
+
+
+    public TileBoxServiceImpl(TileBoxRepository tileBoxRepository, TileBoxCommandToTileBox tileBoxCommandToTileBox, TileBoxToTileBoxCommand tileBoxToTileBoxCommand) {
         this.tileBoxRepository = tileBoxRepository;
+        this.tileBoxCommandToTileBox = tileBoxCommandToTileBox;
+        this.tileBoxToTileBoxCommand = tileBoxToTileBoxCommand;
     }
 
     @Override
@@ -61,5 +70,19 @@ public class TileBoxServiceImpl implements TileBoxService {
     @Transactional
     public void deleteById(Long id) {
         tileBoxRepository.deleteById(id);
+    }
+
+    // The purpose of this method is to save the command object that would be bind
+    // in the addproduct.html document and received by the addNewProduct() method
+    @Override
+    @Transactional
+    public TileBoxCommand saveTileBoxCommand(TileBoxCommand command) {
+        TileBox detachedTileBox = tileBoxCommandToTileBox.convert(command);
+
+        TileBox savedTileBox = tileBoxRepository.save(detachedTileBox);
+
+        log.debug("Saved new product with id: " + savedTileBox.getId());
+
+        return tileBoxToTileBoxCommand.convert(savedTileBox);
     }
 }
