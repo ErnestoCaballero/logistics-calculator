@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
     <h1>Add New Product</h1>
+
+    <form th:object="${tileBox}" th:action="@{/products/add}" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <td>Boxes Per Pallet</td>
+                    <td>Code</td>
+                    <td>Description</td>
+                    <td>Square Meters per Box</td>
+                    <td>Weight Per Box</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="number" th:field="*{boxesPerPallet}" /></td>
+                    <td><input type="text" th:field="*{code}" /></td>
+                    <td><input type="text" th:field="*{description}" /></td>
+                    <td><input type="number" step="0.01" th:field="*{m2PerBox}" /></td>
+                    <td><input type="number" step="0.01" th:field="*{weightPerBox}" /></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">Submit</button>
+    </form>
 
 </body>
 </html>
