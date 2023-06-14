@@ -47,4 +47,13 @@ public class TripDetail {
         this.totalWeight = totalWeight;
         this.productName = productName;
     }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
 }
