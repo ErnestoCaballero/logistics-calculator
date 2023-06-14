@@ -8,14 +8,30 @@
 
     <h1>List Of Products</h1>
 
-    <ul>
-        <li th:remove="all">1 Cup of milk</li>
-        <li th:remove="all">1 Teaspoon of chocolate</li>
-        <li th:each="product : ${products}"
-            th:text="${product.getId() + ' ' + product.getCode() + ' ' + product.getDescription()
-                + ' ' + product.getM2PerBox + ' ' + product.getBoxesPerPallet()
-                + ' ' + product.getWeightPerBox()}">1 Teaspoon of Sugar</li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Square Meters Per Box</th>
+                <th>Boxes per pallet</th>
+                <th>Weight per box</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getId()}"></td>
+                <td th:text="${product.getCode()}"></td>
+                <td th:text="${product.getDescription()}"></td>
+                <td th:text="${product.getM2PerBox()}"></td>
+                <td th:text="${product.getBoxesPerPallet()}"></td>
+                <td th:text="${product.getWeightPerBox()}"></td>
+                <td><a th:href="@{/products/delete}">delete</a></td>
+            </tr>
+        </tbody>
+    </table>
 
     <a th:href="@{/products/new}" >
         <button>Add New Product</button>
