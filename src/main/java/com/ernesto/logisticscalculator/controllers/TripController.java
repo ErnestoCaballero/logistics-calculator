@@ -1,5 +1,6 @@
 package com.ernesto.logisticscalculator.controllers;
 
+import com.ernesto.logisticscalculator.forms.TripDetailForm;
 import com.ernesto.logisticscalculator.model.Trip;
 import com.ernesto.logisticscalculator.model.TripDetail;
 import com.ernesto.logisticscalculator.model.Truck;
@@ -60,11 +61,14 @@ public class TripController {
 
         trip.setTripDetails(tripDetails);
 
-        model.addAttribute("tripDetails", tripDetails);
+        tripRepository.save(trip);
 
         model.addAttribute("tripId", trip.getId());
 
-        tripRepository.save(trip);
+        // Add TripForm to model so that tripform.html can bind the data
+        TripDetailForm tripDetailForm = new TripDetailForm();
+        tripDetailForm.setTripDetails(tripDetails);
+        model.addAttribute("tripDetailsForm", tripDetailForm);
 
         log.debug("Trip created with id: " + trip.getId());
 
@@ -82,6 +86,7 @@ public class TripController {
 
     @PostMapping("trip/save")
     public String saveTripDetails() {
+        log.debug("Enter the saveTripDetails() in TripController class");
 
         return "redirect:/";
     }
