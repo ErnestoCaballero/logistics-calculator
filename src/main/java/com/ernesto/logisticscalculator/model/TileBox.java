@@ -34,6 +34,9 @@ public class TileBox {
     @Column(name = "weight_per_box")
     private Double weightPerBox;
 
+    @Column(name = "deleted_ind")
+    private Boolean isDeleted = false;
+
     @OneToMany(mappedBy = "product")
     private List<TripDetail> tripDetails = new ArrayList<>();
 
@@ -44,5 +47,8 @@ public class TileBox {
         this.m2PerBox = m2PerBox;
         this.boxesPerPallet = boxesPerPallet;
         this.weightPerBox = weightPerBox;
+        this.isDeleted = false;
     }
+
+
 }
