@@ -28,7 +28,7 @@
                 <td th:text="${product.getM2PerBox()}"></td>
                 <td th:text="${product.getBoxesPerPallet()}"></td>
                 <td th:text="${product.getWeightPerBox()}"></td>
-                <td><a th:href="@{/products/delete}">delete</a></td>
+                <td><a th:href="@{'/products/' + ${product.getId()} + '/delete/'}">delete</a></td>
             </tr>
         </tbody>
     </table>
