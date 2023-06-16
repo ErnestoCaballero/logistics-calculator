@@ -24,7 +24,7 @@ public class TileBoxCommandToTileBox implements Converter<TileBoxCommand, TileBo
         tileBox.setM2PerBox(source.getM2PerBox());
         tileBox.setBoxesPerPallet(source.getBoxesPerPallet());
         tileBox.setWeightPerBox(source.getWeightPerBox());
-        tileBox.setIsDeleted(source.getIsDeleted());
+        tileBox.setIsDeleted(false); // since the form does not provide an input to set this parameter, set to false
 
         return tileBox;
     }
