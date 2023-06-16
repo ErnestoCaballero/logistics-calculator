@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
@@ -46,6 +47,16 @@ public class TileBoxController {
         return "redirect:/products";
     }
 
+    @GetMapping({"/products/{id}/delete", "/products/{id}/delete/"})
+    public String deleteProduct(@PathVariable String id) {
+        log.debug("Enter the deleteProduct() method with id: " + id);
+
+        tileBoxService.deleteById(Long.valueOf(id));
+
+        log.debug("Deleted item with id: " + id);
+
+        return "redirect:/products";
+    }
 
 
 }
