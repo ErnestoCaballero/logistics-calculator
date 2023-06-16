@@ -24,6 +24,7 @@ public class TileBoxCommandToTileBox implements Converter<TileBoxCommand, TileBo
         tileBox.setM2PerBox(source.getM2PerBox());
         tileBox.setBoxesPerPallet(source.getBoxesPerPallet());
         tileBox.setWeightPerBox(source.getWeightPerBox());
+        tileBox.setIsDeleted(source.getIsDeleted());
 
         return tileBox;
     }
