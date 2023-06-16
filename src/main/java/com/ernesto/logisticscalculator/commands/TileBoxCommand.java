@@ -14,4 +14,5 @@ public class TileBoxCommand {
     private Double m2PerBox;
     private Integer boxesPerPallet;
     private Double weightPerBox;
+    private Boolean isDeleted;
 }
