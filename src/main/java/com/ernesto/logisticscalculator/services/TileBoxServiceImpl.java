@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +39,9 @@ public class TileBoxServiceImpl implements TileBoxService {
         Set<TileBox> tileBoxes = new HashSet<>();
 
         for (TileBox tileBox : tileBoxRepository.findAll()) {
-            tileBoxes.add(tileBox);
+            if (!tileBox.getIsDeleted()) {
+                tileBoxes.add(tileBox);
+            }
         }
 
         return tileBoxes;
@@ -69,7 +72,20 @@ public class TileBoxServiceImpl implements TileBoxService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        tileBoxRepository.deleteById(id);
+        log.debug("Enter deleteById() method in TileBoxService");
+
+        TileBox tileBox = tileBoxRepository.findById(id).orElse(null);
+
+        if (tileBox == null) {
+            throw new IllegalArgumentException("TileBox not found with id: " + id);
+        }
+
+        if (tileBox.getTripDetails().isEmpty()) {
+            tileBoxRepository.deleteById(id);
+        } else {
+            tileBox.setIsDeleted(true);
+            tileBoxRepository.save(tileBox);
+        }
     }
 
     // The purpose of this method is to save the command object that would be bind
