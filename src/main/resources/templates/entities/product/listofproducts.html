@@ -29,6 +29,7 @@
                 <td th:text="${product.getBoxesPerPallet()}"></td>
                 <td th:text="${product.getWeightPerBox()}"></td>
                 <td><a th:href="@{'/products/' + ${product.getId()} + '/delete/'}">delete</a></td>
+                <td><a th:href="@{'/products/' + ${product.getId()} + '/update/'}">update</a></td>
             </tr>
         </tbody>
     </table>
