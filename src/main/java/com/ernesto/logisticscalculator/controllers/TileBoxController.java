@@ -58,5 +58,14 @@ public class TileBoxController {
         return "redirect:/products";
     }
 
+    @GetMapping({"/products/{id}/update", "/products/{id}/update/"})
+    public String updateProduct(@PathVariable String id, Model model) {
+        log.debug("Enter the updateProduct() method with id: " + id);
+
+        model.addAttribute("tileBox", tileBoxService.findById(Long.valueOf(id)));
+
+        return "entities/product/addproduct";
+    }
+
 
 }
