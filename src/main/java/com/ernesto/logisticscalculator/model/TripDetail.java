@@ -23,7 +23,7 @@ public class TripDetail {
     private Trip trip;
 
     @ManyToOne
-    @JoinColumn(name = "product_code")
+    @JoinColumn(name = "product_id")
     private TileBox product;
 
     @Column(name = "product_name")
