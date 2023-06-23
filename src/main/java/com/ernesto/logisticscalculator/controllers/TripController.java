@@ -51,24 +51,19 @@ public class TripController {
         trip.setTruck(truck);
 
         // Setting the trip details List to be populated after the submission of the tripform.html
-        List<TripDetail> tripDetails = new ArrayList<>();
-        for (int i = 0; i < itemsNumber; i++) {
-            TripDetail tripDetail = new TripDetail();
-            tripDetail.setTrip(trip);
-
-            tripDetails.add(tripDetail);
-        }
-
-        trip.setTripDetails(tripDetails);
+//        List<TripDetail> tripDetails = new ArrayList<>();
+//        for (int i = 0; i < itemsNumber; i++) {
+//            TripDetail tripDetail = new TripDetail();
+//            tripDetail.setTrip(trip);
+//
+//            tripDetails.add(tripDetail);
+//        }
+//
+//        trip.setTripDetails(tripDetails);
 
         tripRepository.save(trip);
 
         model.addAttribute("tripId", trip.getId());
-
-        // Add TripForm to model so that tripform.html can bind the data
-        TripDetailForm tripDetailForm = new TripDetailForm();
-        tripDetailForm.setTripDetails(tripDetails);
-        model.addAttribute("tripDetailsForm", tripDetailForm);
 
         log.debug("Trip created with id: " + trip.getId());
 
