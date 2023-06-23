@@ -1,8 +1,6 @@
 package com.ernesto.logisticscalculator.controllers;
 
 import com.ernesto.logisticscalculator.commands.TileBoxCommand;
-import com.ernesto.logisticscalculator.converters.TileBoxCommandToTileBox;
-import com.ernesto.logisticscalculator.model.TileBox;
 import com.ernesto.logisticscalculator.services.TileBoxService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
