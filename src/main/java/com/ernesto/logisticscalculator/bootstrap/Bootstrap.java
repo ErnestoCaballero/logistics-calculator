@@ -92,7 +92,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         List<TripDetail> tripDetails = new ArrayList<>();
 
-        // Set properties for trip 1
+        // Set properties for tripDetail 1
         int sentBoxes1 = 12;
         Long productId1 = 5L;
         TripDetail tripDetail1 = new TripDetail();
@@ -104,7 +104,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         tripDetail1.setTotalWeight(product1.getWeightPerBox() * sentBoxes1);
         tripDetail1.setProductName(product1.getDescription());
 
-        // Set properties for trip 2
+        // Set properties for tripDetail 2
         int sentBoxes2 = 8;
         Long productId2 = 2L;
         TripDetail tripDetail2 = new TripDetail();
