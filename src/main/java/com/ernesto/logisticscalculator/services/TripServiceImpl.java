@@ -7,6 +7,7 @@ import com.ernesto.logisticscalculator.repositories.TripRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public List<Trip> findAll() {
         log.debug("I'm in the service to findAll Trips and put them in an List");
         List<Trip> trips = new ArrayList<>();
@@ -37,6 +39,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public Trip save(Trip trip) {
         Trip savedTrip = tripRepository.save(trip);
 
@@ -46,6 +49,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public Trip findById(Long id) {
         Optional<Trip> optionalTrip = tripRepository.findById(id);
 
@@ -57,6 +61,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Trip trip = tripRepository.findById(id).orElse(null);
 
@@ -77,6 +82,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    @Transactional
     public void delete(Trip trip) {
         tripRepository.delete(trip);
     }
