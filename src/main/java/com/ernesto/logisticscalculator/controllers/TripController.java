@@ -1,18 +1,22 @@
 package com.ernesto.logisticscalculator.controllers;
 
-import com.ernesto.logisticscalculator.forms.TripDetailForm;
+import com.ernesto.logisticscalculator.commands.TileBoxCommand;
+import com.ernesto.logisticscalculator.commands.TripDetailCommand;
+import com.ernesto.logisticscalculator.converters.TripDetailCommandToTripDetail;
+import com.ernesto.logisticscalculator.forms.TripDetailsForm;
 import com.ernesto.logisticscalculator.model.Trip;
 import com.ernesto.logisticscalculator.model.TripDetail;
 import com.ernesto.logisticscalculator.model.Truck;
+import com.ernesto.logisticscalculator.repositories.TripDetailRepository;
 import com.ernesto.logisticscalculator.repositories.TripRepository;
+import com.ernesto.logisticscalculator.services.TileBoxService;
+import com.ernesto.logisticscalculator.services.TripService;
 import com.ernesto.logisticscalculator.services.TruckService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,10 +28,18 @@ public class TripController {
 
     private final TruckService truckService;
     private final TripRepository tripRepository;
+    private final TileBoxService tileBoxService;
+    private final TripService tripService;
+    private final TripDetailRepository tripDetailRepository;
+    private final TripDetailCommandToTripDetail tripDetailCommandToTripDetail;
 
-    public TripController(TruckService truckService, TripRepository tripRepository) {
+    public TripController(TruckService truckService, TripRepository tripRepository, TileBoxService tileBoxService, TripService tripService, TripDetailRepository tripDetailRepository, TripDetailCommandToTripDetail tripDetailCommandToTripDetail) {
         this.truckService = truckService;
         this.tripRepository = tripRepository;
+        this.tileBoxService = tileBoxService;
+        this.tripService = tripService;
+        this.tripDetailRepository = tripDetailRepository;
+        this.tripDetailCommandToTripDetail = tripDetailCommandToTripDetail;
     }
 
     @GetMapping("/trip/{truckId}/start/{itemsNumber}")
@@ -50,22 +62,25 @@ public class TripController {
         trip.setTruckCapacity(truck.getCapacityInTons());
         trip.setTruck(truck);
 
-        // Setting the trip details List to be populated after the submission of the tripform.html
-//        List<TripDetail> tripDetails = new ArrayList<>();
-//        for (int i = 0; i < itemsNumber; i++) {
-//            TripDetail tripDetail = new TripDetail();
-//            tripDetail.setTrip(trip);
-//
-//            tripDetails.add(tripDetail);
-//        }
-//
-//        trip.setTripDetails(tripDetails);
-
         tripRepository.save(trip);
+
+        log.debug("Trip created with id: " + trip.getId());
 
         model.addAttribute("tripId", trip.getId());
 
-        log.debug("Trip created with id: " + trip.getId());
+        List<TripDetailCommand> tripDetails = new ArrayList<>();
+
+        for (int i = 0; i < itemsNumber; i++) {
+            TripDetailCommand tripDetailCommand = new TripDetailCommand();
+            tripDetailCommand.setTripId(trip.getId());
+
+            tripDetails.add(tripDetailCommand);
+        }
+
+        TripDetailsForm tripDetailsForm = new TripDetailsForm();
+        tripDetailsForm.setTripDetails(tripDetails);
+
+        model.addAttribute("tripDetailsForm", tripDetailsForm);
 
         return "entities/trip/tripform";
     }
@@ -80,8 +95,23 @@ public class TripController {
     }
 
     @PostMapping("trip/save")
-    public String saveTripDetails() {
+    public String saveTripDetails(@ModelAttribute("tripDetailsForm") TripDetailsForm tripDetailsForm) {
         log.debug("Enter the saveTripDetails() in TripController class");
+
+        List<TripDetailCommand> tripDetails = tripDetailsForm.getTripDetails();
+
+        List<TripDetail> tripDetailsToSave = new ArrayList<>();
+
+        for (TripDetailCommand tripDetailCommand : tripDetails) {
+            log.debug("The first product entered to be saved is: " + tileBoxService.findById(tripDetailCommand.getTileBoxId()).getDescription());
+            log.debug("The trip id for which is going to be saved is: " + tripDetailCommand.getTripId());
+            TripDetail detachedTripDetail = tripDetailCommandToTripDetail.convert(tripDetailCommand);
+            tripDetailsToSave.add(detachedTripDetail);
+        }
+
+        for (TripDetail tripDetail : tripDetailsToSave) {
+            tripDetailRepository.save(tripDetail);
+        }
 
         return "redirect:/";
     }
