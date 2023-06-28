@@ -20,11 +20,7 @@ public class TripDetailToTripDetailCommand implements Converter<TripDetail, Trip
 
         tripDetailCommand.setId(source.getId());
         tripDetailCommand.setTripId(source.getTrip().getId());
-        tripDetailCommand.setProductId(source.getProduct().getId());
-        tripDetailCommand.setProductName(source.getProductName());
         tripDetailCommand.setSentBoxes(source.getSentBoxes());
-        tripDetailCommand.setTotalSquareMeters(source.getTotalSquareMeters());
-        tripDetailCommand.setTotalWeight(source.getTotalWeight());
 
         return tripDetailCommand;
     }
