@@ -9,10 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TripDetailCommand {
     private Long id;
-    private TripCommand tripCommand;
-    private TileBoxCommand tileBoxCommand;
-    private String productName;
+    private Long tripId;
+    private Long tileBoxId;
     private Integer sentBoxes;
-    private Double totalSquareMeters;
-    private Double totalWeight;
+
+    public Long getTileBoxId() {
+        return tileBoxId;
+    }
 }
