@@ -7,20 +7,29 @@
 <body>
     <h2>Trip Details Form</h2>
 
-    <form th:action="@{trip/save}" method="post" th:object="${tripDetailsForm}">
+    <form th:object="${tripDetailsForm}" th:action="@{/trip/save}" method="post">
         <table>
                 <thead>
                     <tr>
-                        <th>Product Code</th>
+                        <th>#</th>
+                        <th>Trip ID</th>
+                        <th>Product Id</th>
                         <th>Sent Boxes</th>
                     </tr>
                 </thead>
                 <tbody>
-<!--                    <tr th:each="tripDetail, i : ${tripDetailsForm.tripDetails}">-->
-                        <td th:text="${item}"></td>
-<!--                        <td><input type="text" th:field="*{tripDetails[__i.index__].product.code}" /></td>-->
-<!--                        <td><input type="number" th:field="*{tripDetails[__i.index__].sentBoxes}"  /></td>-->
-<!--                    </tr>-->
+                    <tr th:each="tripDetail, rowStat : *{tripDetails}">
+                        <td th:text="${rowStat.count}"></td>
+                        <td>
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}">
+                        </td>
+                    </tr>
                 </tbody>
         </table>
 
