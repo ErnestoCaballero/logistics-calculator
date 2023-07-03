@@ -58,6 +58,15 @@ public class TruckController {
         return "redirect:/truck/" + truck1.getId() + "/show/";
     }
 
+    @GetMapping({"/truck/create/", "/truck/create"})
+    public String createTruck(Model model) {
+        log.debug("Enter the createTruck() method in the TruckController");
+
+        model.addAttribute("truck", new Truck());
+
+        return "entities/truck/newtruckform";
+    }
+
 
 
 }
