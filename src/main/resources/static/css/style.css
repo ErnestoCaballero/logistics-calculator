@@ -127,3 +127,42 @@ h3 {
     display: flex;
     flex-direction: column;
 }
+
+.create-container {
+    margin-top: 48px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.btn-create:link,
+.btn-create:visited {
+    background-color: #f08c00;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 100px;
+    padding: 12px 12px;
+
+    display: block;
+}
+
+.btn-create:hover,
+.btn-create:active {
+    background-color: #fab005;
+}
+
+.btn-create--right {
+    border-left: 1px solid #fff;
+}
+
+.create-container .btn-create--right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.create-container .btn-create--left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
