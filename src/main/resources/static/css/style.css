@@ -97,13 +97,33 @@ h3 {
     text-align: center;
 }
 
+.btn--delete:link,
+.btn--delete:visited {
+    background-color: #087f5b;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    display: inline-block;
+    border-radius: 100px;
+    margin-bottom: 12px;
+
+    /* transition: box-shadow 0.3s ease-in-out; */
+}
+
+.btn--delete:hover,
+.btn--delete:active {
+    /* background-color: #e03131;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); */
+
+    background-color: #e03131;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+}
+
 
 .crud-operations {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-}
-
-.crud-operations:last-child {
-
 }
