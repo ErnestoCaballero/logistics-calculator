@@ -19,18 +19,22 @@ public class Truck {
     private Long id;
 
     @Column(name = "type")
-    String type;
+    private String type;
 
     @Column(name = "capacity_in_tons")
-    Double capacityInTons;
+    private Double capacityInTons;
 
     @Column(name = "cost_per_trip")
-    Double cost;
+    private Double cost;
+
+    @Column(name = "deleted_ind")
+    private Boolean isDeleted = false;
 
     public Truck(Long id, String type, Double capacityInTons, Double cost) {
         this.id = id;
         this.type = type;
         this.capacityInTons = capacityInTons;
         this.cost = cost;
+        this.isDeleted = false;
     }
 }
