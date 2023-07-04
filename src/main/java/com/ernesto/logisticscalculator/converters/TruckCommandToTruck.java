@@ -22,6 +22,7 @@ public class TruckCommandToTruck implements Converter<TruckCommand, Truck> {
         truck.setType(source.getType());
         truck.setCost(source.getCost());
         truck.setCapacityInTons(source.getCapacityInTons());
+        truck.setIsDeleted(false);
 
         return truck;
     }
