@@ -1,6 +1,7 @@
 package com.ernesto.logisticscalculator.services;
 
 import com.ernesto.logisticscalculator.model.TileBox;
+import com.ernesto.logisticscalculator.model.Trip;
 import com.ernesto.logisticscalculator.model.Truck;
 import com.ernesto.logisticscalculator.repositories.TruckRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,9 +19,11 @@ import java.util.Set;
 public class TruckServiceImpl implements TruckService {
 
     private final TruckRepository truckRepository;
+    private final TripService tripService;
 
-    public TruckServiceImpl(TruckRepository truckRepository) {
+    public TruckServiceImpl(TruckRepository truckRepository, TripService tripService) {
         this.truckRepository = truckRepository;
+        this.tripService = tripService;
     }
 
     @Override
@@ -30,7 +34,9 @@ public class TruckServiceImpl implements TruckService {
         Set<Truck> truckSet = new HashSet<>();
 
         for (Truck truck : truckRepository.findAll()) {
-            truckSet.add(truck);
+            if (!truck.getIsDeleted()) {
+                truckSet.add(truck);
+            }
         }
 
         return truckSet;
@@ -61,6 +67,22 @@ public class TruckServiceImpl implements TruckService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+
+        for (Trip trip : tripService.findAll()) {
+            if (Objects.equals(trip.getTruck().getId(), id)) {
+                Truck truckToDelete = truckRepository.findById(id).orElse(null);
+
+                if (truckToDelete == null) {
+                    throw new IllegalArgumentException("Truck not found with id: " + id);
+                }
+
+                truckToDelete.setIsDeleted(true);
+                Truck deletedTruck = truckRepository.save(truckToDelete);
+                log.debug("isDeleted property of Truck with id " + deletedTruck.getId() + " was set to true");
+                return;
+            }
+        }
+
         truckRepository.deleteById(id);
     }
 }
