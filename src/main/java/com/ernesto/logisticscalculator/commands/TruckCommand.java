@@ -12,4 +12,5 @@ public class TruckCommand {
     private String type;
     private Double capacityInTons;
     private Double cost;
+    private Boolean isDeleted;
 }
