@@ -102,12 +102,27 @@ public class TripController {
 
         List<TripDetail> tripDetailsToSave = new ArrayList<>();
 
+        log.debug("Searching for the trip to be updated...");
+        Trip tripToUpdate = tripService.findById(tripDetailsForm.getTripDetails().get(0).getTripId());
+        log.debug("The trip to be updated is " + tripToUpdate.getId());
+
+        Double totalCargoWeight = 0.0;
+        Double totalSquareMeters = 0.0;
+
         for (TripDetailCommand tripDetailCommand : tripDetails) {
             log.debug("The first product entered to be saved is: " + tileBoxService.findById(tripDetailCommand.getTileBoxId()).getDescription());
             log.debug("The trip id for which is going to be saved is: " + tripDetailCommand.getTripId());
             TripDetail detachedTripDetail = tripDetailCommandToTripDetail.convert(tripDetailCommand);
             tripDetailsToSave.add(detachedTripDetail);
+            log.debug("Adding total weight and total square meters to trip for each product...");
+            totalCargoWeight += detachedTripDetail.getTotalWeight();
+            totalSquareMeters += detachedTripDetail.getTotalSquareMeters();
         }
+
+        tripToUpdate.setTotalCargoWeight(totalCargoWeight);
+        tripToUpdate.setTotalSquareMeters(totalSquareMeters);
+
+        Trip updatedTrip = tripService.save(tripToUpdate);
 
         for (TripDetail tripDetail : tripDetailsToSave) {
             tripDetailRepository.save(tripDetail);
