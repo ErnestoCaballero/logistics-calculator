@@ -24,10 +24,10 @@
                             <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">
                         </td>
                         <td>
-                            <select type="text" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
-                                <option value="">Select a product</option>
+                            <input list="productCodes" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
+                            <datalist id="productCodes">
                                 <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}"></option>
-                            </select>
+                            </datalist>
 <!--                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">-->
                         </td>
                         <td>
