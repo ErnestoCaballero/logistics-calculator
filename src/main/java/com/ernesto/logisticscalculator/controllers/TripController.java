@@ -82,6 +82,8 @@ public class TripController {
 
         model.addAttribute("tripDetailsForm", tripDetailsForm);
 
+        model.addAttribute("tileBoxes", tileBoxService.findAll());
+
         return "entities/trip/tripform";
     }
 
