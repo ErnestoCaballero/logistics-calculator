@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+		<!--    /css/style.css  springboot start-->
+		<!--    /static/css/style.css   regular check-->
+		<link rel="stylesheet" type="text/css" href="/css/capacitystyle.css">
+
+    <title>Truck Capacity Exceeded</title>
+</head>
+<body>
+  <div class="container">
+		<h1>ERROR: Truck Capacity Exceeded</h1>
+		<p>Please adjust the selection</p>
+		<div class="row">
+			<div class="img-container">
+				<img src="/images/exceeded.png" alt="exceeded">
+			</div>
+			<div class="btn-container">
+				<a href="#" th:href="@{/index}" class="page-link">Try again</a>
+			</div>
+		</div>
+  </div>
+
+</body>
+</html>
