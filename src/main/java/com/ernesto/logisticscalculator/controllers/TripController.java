@@ -119,6 +119,11 @@ public class TripController {
             totalSquareMeters += detachedTripDetail.getTotalSquareMeters();
         }
 
+        if (totalCargoWeight > tripToUpdate.getTruck().getCapacityInTons()) {
+            log.debug("The TotalCargoWeight parameter exceeded the Truck capacity...");
+            return "entities/error/exceedcapacity";
+        }
+
         tripToUpdate.setTotalCargoWeight(totalCargoWeight);
         tripToUpdate.setTotalSquareMeters(totalSquareMeters);
 
