@@ -15,6 +15,7 @@
                         <th>Trip ID</th>
                         <th>Product Id</th>
                         <th>Sent Boxes</th>
+                        <th>Boxes Per Pallet</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,14 +25,23 @@
                             <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">
                         </td>
                         <td>
-                            <input list="productCodes" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
+<!--                            <input id="productInput" type="text" list="productCodes" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" oninput="updateBoxesPerPallet()">-->
+                            <input type="text" list="productCodes"  th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
                             <datalist id="productCodes">
-                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}"></option>
+                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet}"></option>
                             </datalist>
 <!--                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">-->
                         </td>
                         <td>
                             <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}">
+                        </td>
+                        <td>
+<!--                            <span th:if="${tripDetail.tileBoxId != null}">-->
+<!--                                <p>hello</p>-->
+<!--                                <span th:each="tileBox : ${tileBoxes}"  th:if="${tileBox.id == tripDetail.tileBoxId}" th:text="${tileBox.boxesPerPallet}"></span>-->
+<!--                            </span>-->
+                            <a th:if="${tripDetail.tileBoxId != null}">Hello</a>
+                            <a th:unless="${tripDetail.tileBoxId != null}" th:text=""></a>
                         </td>
                     </tr>
                 </tbody>
