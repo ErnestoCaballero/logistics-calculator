@@ -14,9 +14,10 @@
                         <th>#</th>
 <!--                        <th>Trip ID</th>-->
                         <th>Product Id</th>
+                        <th>Product Name</th>
                         <th>Sent Boxes</th>
                         <th>Boxes Per Pallet</th>
-                        <th>Total Square Meters</th>
+                        <th>Square Meter Per Box</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,8 +29,11 @@
                         <td>
                             <select th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" onchange="updateBoxesPerPallet(this)">
                                 <option value="" selected>Select</option> <!-- Empty option -->
-                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet},data-square-meters-per-box=${tileBox.m2PerBox}"></option>
+                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet},data-square-meters-per-box=${tileBox.m2PerBox},data-description=${tileBox.description}"></option>
                             </select>
+                        </td>
+                        <td>
+                            <span class="description"></span>
                         </td>
                         <td>
                             <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}">
@@ -52,13 +56,20 @@
     <script type="text/javascript">
         function updateBoxesPerPallet(selectElement) {
             var selectedOption = selectElement.options[selectElement.selectedIndex];
+
             var boxesPerPallet = selectedOption.getAttribute('data-boxes-per-pallet');
             var squareMetersPerBox = String(selectedOption.getAttribute('data-square-meters-per-box'));
+            var description = selectedOption.getAttribute('data-description');
+
             var row = selectElement.parentElement.parentElement;
+
             var boxesPerPalletElement = row.querySelector('.boxes-per-pallet');
             var squareMetersPerBoxElement = row.querySelector('.square-meters-per-box');
+            var descriptionElement = row.querySelector('.description');
+
             boxesPerPalletElement.textContent = boxesPerPallet;
             squareMetersPerBoxElement.textContent = squareMetersPerBox;
+            descriptionElement.textContent = description;
         }
     </script>
 </body>
