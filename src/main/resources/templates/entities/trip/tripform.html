@@ -12,36 +12,33 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Trip ID</th>
+<!--                        <th>Trip ID</th>-->
                         <th>Product Id</th>
                         <th>Sent Boxes</th>
                         <th>Boxes Per Pallet</th>
+                        <th>Total Square Meters</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="tripDetail, rowStat : *{tripDetails}">
                         <td th:text="${rowStat.count}"></td>
+<!--                        <td>-->
+<!--                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">-->
+<!--                        </td>-->
                         <td>
-                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">
-                        </td>
-                        <td>
-<!--                            <input id="productInput" type="text" list="productCodes" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" oninput="updateBoxesPerPallet()">-->
-                            <input type="text" list="productCodes"  th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">
-                            <datalist id="productCodes">
-                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet}"></option>
-                            </datalist>
-<!--                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}">-->
+                            <select th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" onchange="updateBoxesPerPallet(this)">
+                                <option value="" selected>Select</option> <!-- Empty option -->
+                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet},data-square-meters-per-box=${tileBox.m2PerBox}"></option>
+                            </select>
                         </td>
                         <td>
                             <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}">
                         </td>
                         <td>
-<!--                            <span th:if="${tripDetail.tileBoxId != null}">-->
-<!--                                <p>hello</p>-->
-<!--                                <span th:each="tileBox : ${tileBoxes}"  th:if="${tileBox.id == tripDetail.tileBoxId}" th:text="${tileBox.boxesPerPallet}"></span>-->
-<!--                            </span>-->
-                            <a th:if="${tripDetail.tileBoxId != null}">Hello</a>
-                            <a th:unless="${tripDetail.tileBoxId != null}" th:text=""></a>
+                            <span class="boxes-per-pallet"></span>
+                        </td>
+                        <td>
+                            <span class="square-meters-per-box"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -52,5 +49,17 @@
         <button type="submit">Save</button>
     </form>
 
+    <script type="text/javascript">
+        function updateBoxesPerPallet(selectElement) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var boxesPerPallet = selectedOption.getAttribute('data-boxes-per-pallet');
+            var squareMetersPerBox = String(selectedOption.getAttribute('data-square-meters-per-box'));
+            var row = selectElement.parentElement.parentElement;
+            var boxesPerPalletElement = row.querySelector('.boxes-per-pallet');
+            var squareMetersPerBoxElement = row.querySelector('.square-meters-per-box');
+            boxesPerPalletElement.textContent = boxesPerPallet;
+            squareMetersPerBoxElement.textContent = squareMetersPerBox;
+        }
+    </script>
 </body>
 </html>
