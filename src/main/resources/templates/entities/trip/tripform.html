@@ -12,20 +12,21 @@
                 <thead>
                     <tr>
                         <th>#</th>
-<!--                        <th>Trip ID</th>-->
+                        <th style="display: none;">Trip ID</th>
                         <th>Product Id</th>
                         <th>Product Name</th>
                         <th>Sent Boxes</th>
                         <th>Boxes Per Pallet</th>
                         <th>Square Meter Per Box</th>
+                        <th>Total Square Meters</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="tripDetail, rowStat : *{tripDetails}">
                         <td th:text="${rowStat.count}"></td>
-<!--                        <td>-->
-<!--                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">-->
-<!--                        </td>-->
+                        <td style="display: none;">
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].tripId}">
+                        </td>
                         <td>
                             <select th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" onchange="updateBoxesPerPallet(this)">
                                 <option value="" selected>Select</option> <!-- Empty option -->
@@ -36,7 +37,7 @@
                             <span class="description"></span>
                         </td>
                         <td>
-                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}">
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}" class="sent-boxes" oninput="calculateTotalSquareMeters(this.parentElement.parentElement)">
                         </td>
                         <td>
                             <span class="boxes-per-pallet"></span>
@@ -44,12 +45,13 @@
                         <td>
                             <span class="square-meters-per-box"></span>
                         </td>
+                        <td>
+                            <span class="total-square-meters"></span>
+                        </td>
                     </tr>
                 </tbody>
         </table>
 
-        <!-- Hidden input field to store the tripId-->
-<!--        <input type="hidden" th:field="*{tripId}" />-->
         <button type="submit">Save</button>
     </form>
 
@@ -58,7 +60,7 @@
             var selectedOption = selectElement.options[selectElement.selectedIndex];
 
             var boxesPerPallet = selectedOption.getAttribute('data-boxes-per-pallet');
-            var squareMetersPerBox = String(selectedOption.getAttribute('data-square-meters-per-box'));
+            var squareMetersPerBox = parseFloat(selectedOption.getAttribute('data-square-meters-per-box'));
             var description = selectedOption.getAttribute('data-description');
 
             var row = selectElement.parentElement.parentElement;
@@ -68,8 +70,19 @@
             var descriptionElement = row.querySelector('.description');
 
             boxesPerPalletElement.textContent = boxesPerPallet;
-            squareMetersPerBoxElement.textContent = squareMetersPerBox;
+            squareMetersPerBoxElement.textContent = squareMetersPerBox.toFixed(2);
             descriptionElement.textContent = description;
+
+            calculateTotalSquareMeters(row);
+        }
+
+        function calculateTotalSquareMeters(row) {
+            var sentBoxes = parseFloat(row.querySelector('.sent-boxes').value);
+            var squareMetersPerBox = parseFloat(row.querySelector('.square-meters-per-box').textContent);
+            var totalSquareMeters = sentBoxes * squareMetersPerBox;
+
+            var totalSquareMetersElement = row.querySelector('.total-square-meters');
+            totalSquareMetersElement.textContent = totalSquareMeters.toFixed(2);
         }
     </script>
 </body>
