@@ -39,7 +39,7 @@
                             <span class="description"></span>
                         </td>
                         <td>
-                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}" class="sent-boxes" oninput="calculateTotalSquareMeters(this.parentElement.parentElement)">
+                            <input type="text" th:field="*{tripDetails[__${rowStat.index}__].sentBoxes}" class="sent-boxes" oninput="calculateTotalSquareMetersAndWeight(this.parentElement.parentElement)">
                         </td>
                         <td>
                             <span class="boxes-per-pallet"></span>
@@ -84,10 +84,10 @@
             descriptionElement.textContent = description;
             weightPerBoxElement.textContent = weightPerBox.toFixed(2);
 
-            calculateTotalSquareMeters(row);
+            calculateTotalSquareMetersAndWeight(row);
         }
 
-        function calculateTotalSquareMeters(row) {
+        function calculateTotalSquareMetersAndWeight(row) {
             var sentBoxes = parseFloat(row.querySelector('.sent-boxes').value);
 
             var squareMetersPerBox = parseFloat(row.querySelector('.square-meters-per-box').textContent);
