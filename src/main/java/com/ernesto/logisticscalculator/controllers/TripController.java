@@ -102,13 +102,6 @@ public class TripController {
 
         List<TripDetail> tripDetailsToSave = new ArrayList<>();
 
-//        log.debug("Itarating over form received from model as @ModelAttribute");
-//        for (TripDetailCommand tripDetailCommand : tripDetailsForm.getTripDetails()) {
-//            log.debug("The trip ID is: " + tripDetailCommand.getTripId());
-//            log.debug("The  is: " + tripDetailCommand.getSentBoxes());
-//            log.debug("The  is: " + tripDetailCommand.getTileBoxId());
-//        }
-
         log.debug("Searching for the trip to be updated...");
         Trip tripToUpdate = tripService.findById(tripDetailsForm.getTripDetails().get(0).getTripId());
         log.debug("The trip to be updated is " + tripToUpdate.getId());
