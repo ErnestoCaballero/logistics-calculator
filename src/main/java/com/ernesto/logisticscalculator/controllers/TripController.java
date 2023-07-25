@@ -1,6 +1,7 @@
 package com.ernesto.logisticscalculator.controllers;
 
 import com.ernesto.logisticscalculator.commands.TileBoxCommand;
+import com.ernesto.logisticscalculator.commands.TripCommand;
 import com.ernesto.logisticscalculator.commands.TripDetailCommand;
 import com.ernesto.logisticscalculator.converters.TripDetailCommandToTripDetail;
 import com.ernesto.logisticscalculator.forms.TripDetailsForm;
@@ -103,6 +104,13 @@ public class TripController {
         List<TripDetailCommand> tripDetails = tripDetailsForm.getTripDetails();
 
         List<TripDetail> tripDetailsToSave = new ArrayList<>();
+
+//        log.debug("Itarating over form received from model as @ModelAttribute");
+//        for (TripDetailCommand tripDetailCommand : tripDetailsForm.getTripDetails()) {
+//            log.debug("The trip ID is: " + tripDetailCommand.getTripId());
+//            log.debug("The  is: " + tripDetailCommand.getSentBoxes());
+//            log.debug("The  is: " + tripDetailCommand.getTileBoxId());
+//        }
 
         log.debug("Searching for the trip to be updated...");
         Trip tripToUpdate = tripService.findById(tripDetailsForm.getTripDetails().get(0).getTripId());
