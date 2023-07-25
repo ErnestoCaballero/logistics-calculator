@@ -48,9 +48,6 @@ public class TripController {
         log.debug("Enter the startTrip() method");
         log.debug("The truckId is: " + truckId + " and the itemsNumber is: " + itemsNumber);
 
-        // Add itemsNumber to Model to create as many entries in tripform.html as required
-        model.addAttribute("itemsNumber", itemsNumber);
-
         // Create new Trip
         log.debug("Creating new Trip");
         Truck truck = truckService.findById(Long.valueOf(truckId));
