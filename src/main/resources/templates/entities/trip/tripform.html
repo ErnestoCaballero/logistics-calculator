@@ -17,8 +17,10 @@
                         <th>Product Name</th>
                         <th>Sent Boxes</th>
                         <th>Boxes Per Pallet</th>
-                        <th>Square Meter Per Box</th>
+                        <th style="display: none;">Square Meter Per Box</th>
+                        <th style="display: none;">Weight Per Box</th>
                         <th>Total Square Meters</th>
+                        <th>Total Weight</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +32,7 @@
                         <td>
                             <select th:field="*{tripDetails[__${rowStat.index}__].tileBoxId}" onchange="updateBoxesPerPallet(this)">
                                 <option value="" selected>Select</option> <!-- Empty option -->
-                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet},data-square-meters-per-box=${tileBox.m2PerBox},data-description=${tileBox.description}"></option>
+                                <option th:each="tileBox : ${tileBoxes}" th:value="${tileBox.id}" th:text="${tileBox.code}" th:attr="data-boxes-per-pallet=${tileBox.boxesPerPallet},data-square-meters-per-box=${tileBox.m2PerBox},data-description=${tileBox.description},data-weight-per-box=${tileBox.weightPerBox}"></option>
                             </select>
                         </td>
                         <td>
@@ -42,11 +44,17 @@
                         <td>
                             <span class="boxes-per-pallet"></span>
                         </td>
-                        <td>
+                        <td style="display: none;">
                             <span class="square-meters-per-box"></span>
+                        </td>
+                        <td style="display: none;">
+                            <span class="weight-per-box"></span>
                         </td>
                         <td>
                             <span class="total-square-meters"></span>
+                        </td>
+                        <td>
+                            <span class="total-weight"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -62,27 +70,35 @@
             var boxesPerPallet = selectedOption.getAttribute('data-boxes-per-pallet');
             var squareMetersPerBox = parseFloat(selectedOption.getAttribute('data-square-meters-per-box'));
             var description = selectedOption.getAttribute('data-description');
+            var weightPerBox = parseFloat(selectedOption.getAttribute('data-weight-per-box'));
 
             var row = selectElement.parentElement.parentElement;
 
             var boxesPerPalletElement = row.querySelector('.boxes-per-pallet');
             var squareMetersPerBoxElement = row.querySelector('.square-meters-per-box');
             var descriptionElement = row.querySelector('.description');
+            var weightPerBoxElement = row.querySelector('.weight-per-box');
 
             boxesPerPalletElement.textContent = boxesPerPallet;
             squareMetersPerBoxElement.textContent = squareMetersPerBox.toFixed(2);
             descriptionElement.textContent = description;
+            weightPerBoxElement.textContent = weightPerBox.toFixed(2);
 
             calculateTotalSquareMeters(row);
         }
 
         function calculateTotalSquareMeters(row) {
             var sentBoxes = parseFloat(row.querySelector('.sent-boxes').value);
+
             var squareMetersPerBox = parseFloat(row.querySelector('.square-meters-per-box').textContent);
             var totalSquareMeters = sentBoxes * squareMetersPerBox;
+            var weightPerBox = parseFloat(row.querySelector('.weight-per-box').textContent);
+            var totalWeight = sentBoxes * weightPerBox;
 
             var totalSquareMetersElement = row.querySelector('.total-square-meters');
             totalSquareMetersElement.textContent = totalSquareMeters.toFixed(2);
+            var totalWeightElement = row.querySelector('.total-weight');
+            totalWeightElement.textContent = totalWeight.toFixed(2);
         }
     </script>
 </body>
