@@ -123,6 +123,22 @@
             totalSquareMetersElement.textContent = totalSquareMeters.toFixed(2);
             var totalWeightElement = row.querySelector('.total-weight-value');
             totalWeightElement.textContent = totalWeight.toFixed(2);
+
+            // Calculate the sum of the "Total Weight" column
+            var totalWeightSum = 0;
+            var totalWeightElements = document.querySelectorAll('.total-weight-value');
+            totalWeightElements.forEach(function(element) {
+                var sumElement = parseFloat(element.textContent);
+                if (isNaN(sumElement)) {
+                    totalWeightSum += 0;
+                } else {
+                    totalWeightSum += sumElement;
+                }
+            });
+
+            // Update the "sum-total-cargo" paragraph with the sum
+            var sumTotalCargoElement = document.querySelector('.sum-total-cargo');
+            sumTotalCargoElement.textContent = 'Total Cargo Weight: ' + totalWeightSum.toFixed(2); + 'Kg';
         }
     </script>
 </body>
