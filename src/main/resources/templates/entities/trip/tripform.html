@@ -3,6 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        .summary {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
     <h2>Trip Details Form</h2>
@@ -53,8 +71,8 @@
                         <td>
                             <span class="total-square-meters"></span>
                         </td>
-                        <td>
-                            <span class="total-weight"></span>
+                        <td class="total-weight">
+                            <span class="total-weight-value"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -62,6 +80,12 @@
 
         <button type="submit">Save</button>
     </form>
+
+    <div class="summary">
+        <p th:text="${truckCapacity}" style="display: none;" class="truck-capacity"></p>
+        <p th:text="'Capacity: ' + ${formattedTruckCapacity} + 'Kg'"></p>
+        <p class="sum-total-cargo">It's me</p>
+    </div>
 
     <script type="text/javascript">
         function updateBoxesPerPallet(selectElement) {
@@ -97,7 +121,7 @@
 
             var totalSquareMetersElement = row.querySelector('.total-square-meters');
             totalSquareMetersElement.textContent = totalSquareMeters.toFixed(2);
-            var totalWeightElement = row.querySelector('.total-weight');
+            var totalWeightElement = row.querySelector('.total-weight-value');
             totalWeightElement.textContent = totalWeight.toFixed(2);
         }
     </script>

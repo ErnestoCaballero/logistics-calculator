@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,10 @@ public class TripController {
         // Create new Trip
         log.debug("Creating new Trip");
         Truck truck = truckService.findById(Long.valueOf(truckId));
+
+        // Add truck capacity to the model to be displayed in tripform.html
+        model.addAttribute("truckCapacity", truck.getCapacityInTons() * 1000);
+        model.addAttribute("formattedTruckCapacity", formatDecimal(truck.getCapacityInTons() * 1000, 2));
 
         Trip trip = new Trip();
         trip.setDate(new Date());
@@ -135,5 +140,18 @@ public class TripController {
         }
 
         return "redirect:/";
+    }
+
+    private static String formatDecimal(Double number, int decimalPlaces) {
+        StringBuilder pattern = new StringBuilder("#,##0.");
+        for (int i = 0; i < decimalPlaces; i++) {
+            pattern.append("0");
+        }
+
+        // Create a DecimalFormat instance with the pattern
+        DecimalFormat decimalFormat = new DecimalFormat(pattern.toString());
+
+        // Format the number and return the formatted string
+        return decimalFormat.format(number);
     }
 }
